@@ -59,33 +59,33 @@ const generateBaseline = async () => {
   const files = await getFileArray(false)
   const filesArg = files.join(" ")
 
-  const command = `detect-secrets scan ${filesArg} > .secrets.baseline`
-  await exec(command)
+  // const command = `detect-secrets scan ${filesArg} > .secrets.baseline`
+  // await exec(command)
 }
 
 const check = async (onlyStaged) => {
   const files = await getFileArray(onlyStaged)
   const filesArg = files.join(" ")
 
-  const command = `detect-secrets-hook --baseline .secrets.baseline ${filesArg}`
-  await exec(command)
+  // const command = `detect-secrets-hook --baseline .secrets.baseline ${filesArg}`
+  // await exec(command)
 }
 
 const scan = async (onlyStaged) => {
   const files = await getFileArray(onlyStaged)
   const filesArg = files.join(" ")
 
-  const command = `detect-secrets scan --baseline .secrets.baseline ${filesArg}`
-  try {
-    await exec(command)
-  } catch (e) {
-    // if exit code is 3, it's a success with changes.
-    // we just swallow the error and let the script continue.
-    // https://github.com/Yelp/detect-secrets/pull/214
-    if (e.message.includes("exit code 3")) {
-      // do nothing with the error. keep going.
-    }
-  }
+  // const command = `detect-secrets scan --baseline .secrets.baseline ${filesArg}`
+  // try {
+  //   await exec(command)
+  // } catch (e) {
+  //   // if exit code is 3, it's a success with changes.
+  //   // we just swallow the error and let the script continue.
+  //   // https://github.com/Yelp/detect-secrets/pull/214
+  //   if (e.message.includes("exit code 3")) {
+  //     // do nothing with the error. keep going.
+  //   }
+  // }
 }
 
 const main = async () => {

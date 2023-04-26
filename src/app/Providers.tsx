@@ -1,6 +1,8 @@
 import { Theme, Spinner, ScreenDimensionsProvider } from "@artsy/palette-mobile"
 import { ActionSheetProvider } from "@expo/react-native-action-sheet"
+import { ShareSheetProvider } from "app/Components/ShareSheet/ShareSheetContext"
 import { getRelayEnvironment } from "app/system/relay/defaultEnvironment"
+import { useFeatureFlag } from "app/utils/hooks/useFeatureFlag"
 import { ProvideScreenDimensions } from "app/utils/hooks/useScreenDimensions"
 import { Component, Suspense } from "react"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
@@ -10,13 +12,13 @@ import { _FancyModalPageWrapper } from "./Components/FancyModal/FancyModalContex
 import { PopoverMessageProvider } from "./Components/PopoverMessage/PopoverMessageProvider"
 import { RetryErrorBoundary } from "./Components/RetryErrorBoundary"
 import { ToastProvider } from "./Components/Toast/toastHook"
-import { GlobalStore, GlobalStoreProvider, useFeatureFlag } from "./store/GlobalStore"
+import { GlobalStore, GlobalStoreProvider } from "./store/GlobalStore"
 import { GravityWebsocketContextProvider } from "./utils/Websockets/GravityWebsocketContext"
 import { combineProviders } from "./utils/combineProviders"
 import { UnleashProvider } from "./utils/experiments/UnleashProvider"
 import { track } from "./utils/track"
 
-export const Providers: React.FC = ({ children }) =>
+export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   combineProviders(
     [
       // If Provider A is using another Provider B, then A needs to appear below B.
@@ -38,6 +40,7 @@ export const Providers: React.FC = ({ children }) =>
       _FancyModalPageWrapper,
       ToastProvider, // uses: GlobalStoreProvider
       GravityWebsocketContextProvider, // uses GlobalStoreProvider
+      ShareSheetProvider, // uses _FancyModalPageWrapper
     ],
     children
   )
@@ -58,6 +61,7 @@ export const TestProviders: React.FC<{ skipRelay?: boolean }> = ({
       !skipRelay && RelayDefaultEnvProvider,
       Theme,
       PopoverMessageProvider,
+      ShareSheetProvider,
       ToastProvider,
     ],
     children

@@ -3,14 +3,11 @@ import { Flex, Text } from "@artsy/palette-mobile"
 import { addBreadcrumb } from "@sentry/react-native"
 import { BottomTabRoutes } from "app/Scenes/BottomTabs/bottomTabsConfig"
 import { matchRoute } from "app/routes"
-import {
-  getCurrentEmissionState,
-  GlobalStore,
-  useDevToggle,
-  useEnvironment,
-} from "app/store/GlobalStore"
+import { getCurrentEmissionState, GlobalStore } from "app/store/GlobalStore"
 import { dismissModal, goBack, GoBackProps, navigate } from "app/system/navigation/navigate"
 import { ArtsyKeyboardAvoidingView } from "app/utils/ArtsyKeyboardAvoidingView"
+import { useDevToggle } from "app/utils/hooks/useDevToggle"
+import { useEnvironment } from "app/utils/hooks/useEnvironment"
 import { Schema } from "app/utils/track"
 import { useWebViewCallback } from "app/utils/useWebViewEvent"
 import { debounce } from "lodash"
@@ -103,19 +100,19 @@ export const ArtsyWebViewPage = ({
       <ArtsyKeyboardAvoidingView>
         <FancyModalHeader
           useXButton={isPresentedModally && !canGoBack}
-          onLeftButtonPress={() => {
-            if (useRightCloseButton && !canGoBack) {
-              return null
-            }
-
-            if (isPresentedModally && !canGoBack) {
-              dismissModal()
-            } else if (!canGoBack) {
-              handleGoBack()
-            } else {
-              ref.current?.goBack()
-            }
-          }}
+          onLeftButtonPress={
+            useRightCloseButton && !canGoBack
+              ? undefined
+              : () => {
+                  if (isPresentedModally && !canGoBack) {
+                    dismissModal()
+                  } else if (!canGoBack) {
+                    handleGoBack()
+                  } else {
+                    ref.current?.goBack()
+                  }
+                }
+          }
           useShareButton={showShareButton}
           rightCloseButton={useRightCloseButton}
           onRightButtonPress={

@@ -18,9 +18,15 @@ interface Props {
   title: string
   me: LotsByFollowedArtistsRail_me$data
   relay: RelayPaginationProp
+  cardSize?: "large" | "small"
 }
 
-export const LotsByFollowedArtistsRail: React.FC<Props> = ({ title, me, relay }) => {
+export const LotsByFollowedArtistsRail: React.FC<Props> = ({
+  title,
+  me,
+  relay,
+  cardSize = "small",
+}) => {
   const [isLoading, setIsLoading] = useState(false)
   const isTablet = isPad()
 
@@ -54,7 +60,10 @@ export const LotsByFollowedArtistsRail: React.FC<Props> = ({ title, me, relay })
   return (
     <Flex>
       <Flex mx={2}>
-        <SectionTitle title={title} onPress={() => navigate("/lots-by-artists-you-follow")} />
+        <SectionTitle
+          title={title}
+          onPress={() => navigate("/auctions/lots-for-you-ending-soon")}
+        />
       </Flex>
       <CardRailFlatList
         data={artworks}
@@ -69,6 +78,7 @@ export const LotsByFollowedArtistsRail: React.FC<Props> = ({ title, me, relay })
             useSquareAspectRatio
             useCustomSaleMessage
             contextScreenOwnerType={OwnerType.sale}
+            cardSize={cardSize}
           />
         )}
         keyExtractor={(item) => item.id}
