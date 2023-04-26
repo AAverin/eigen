@@ -106,15 +106,15 @@ local.properties
 android-secret.json
 
 # Fonts
-android/app/src/main/assets/fonts/*
-ios/Artsy/fonts/*
+#android/app/src/main/assets/fonts/*
+#ios/Artsy/fonts/*
 # old native screen needs these there
 ios/Artsy/View_Controllers/Live_Auctions/Resources/Artsy/fonts/*
 
 # Firebase files
 eigen-firebase-app-distribution.json
-google-services.json
-GoogleService-Info.plist
+#google-services.json
+#GoogleService-Info.plist
 
 metaflags.json
 
