@@ -92,6 +92,8 @@ native-code-checksum.hash
 # Ignore env files
 **/.env*
 !.env.example
+#for testing
+!.env.shared
 
 # Android/IntelliJ
 .gradle
