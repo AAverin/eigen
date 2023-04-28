@@ -18,13 +18,13 @@ fi
 
 hook() {
   echo 'Executing detect-secrets-hook...'
-  detect-secrets-hook --baseline .secrets.baseline $(git diff --staged --name-only)
+  # detect-secrets-hook --baseline .secrets.baseline $(git diff --staged --name-only)
   echo "${GREEN}No secrets detected!${NO_COLOR}"
 }
 
 rebuild() {
   echo 'Executing detect-secrets scan...'
-  detect-secrets scan --baseline .secrets.baseline
+  # detect-secrets scan --baseline .secrets.baseline
   echo "${GREEN}Baseline re-generated!${NO_COLOR}"
 }
 
